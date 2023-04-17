@@ -6,6 +6,7 @@ import {
   Head,
   Body,
   Text,
+  Links,
 } from './styled/article-styled'
 
 const Article = ({ displayArticle, setDisplayArticle, setMaterialsPage }) => {
@@ -27,6 +28,24 @@ const Article = ({ displayArticle, setDisplayArticle, setMaterialsPage }) => {
           <Text>
             <p>{displayArticle.text}</p>
           </Text>
+          <Links>
+            <span>Полезные ссылки:</span>
+            <div>
+              {JSON.parse(displayArticle.links).length === 0 && (
+                <p className='noLinks'>ссылок нет</p>
+              )}
+              {JSON.parse(displayArticle.links).map((link) => (
+                <p>
+                  <a
+                    href={link.includes('http') ? link : `https://${link}`}
+                    target='_blank'
+                  >
+                    {link}
+                  </a>
+                </p>
+              ))}
+            </div>
+          </Links>
         </Body>
       </Content>
     </Container>

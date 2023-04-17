@@ -16,6 +16,7 @@ import {
   RegBox,
   Registrat,
   Back,
+  Roles,
 } from './styled/authorization-a-styled'
 
 const Authorization = ({ setCurrentPage }) => {
@@ -37,6 +38,7 @@ const Authorization = ({ setCurrentPage }) => {
 
   const signIn = async (status) => {
     try {
+      if (!login || !password) return
       dispatch(changeLoading(true))
       if (status === 'registration') {
         dispatch(
@@ -137,6 +139,26 @@ const Authorization = ({ setCurrentPage }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Input>
+            <Roles>
+              <p>
+                <input
+                  id='role1'
+                  type='radio'
+                  name='role'
+                  onClick={() => setRole('client')}
+                />
+                <label htmlFor='role1'>Пользователь</label>
+              </p>
+              <p>
+                <input
+                  id='role2'
+                  type='radio'
+                  name='role'
+                  onClick={() => setRole('admin')}
+                />
+                <label htmlFor='role2'>Администратор</label>
+              </p>
+            </Roles>
           </RegBox>
           <Registrat>
             <button onClick={() => signIn('registration')}>

@@ -18,7 +18,7 @@ export const GoBack = styled.div`
     padding: 10px 20px;
     border-radius: 5px;
     background-color: rgba(184, 207, 116, 0.5);
-    :hover{
+    :hover {
       transform: scale(1.02);
     }
   }
@@ -38,4 +38,23 @@ export const Body = styled.div`
 export const Text = styled.div`
   font-size: 20px;
   line-height: 25px;
+`
+
+export const Links = styled.div`
+  display: flex;
+  margin-top: 100px;
+
+  .noLinks {
+    color: grey;
+  }
+
+  div {
+    margin-left: 20px;
+  }
+  p {
+    margin-bottom: 5px;
+  }
+  a {
+    text-decoration: underline;
+  }
 `

@@ -150,3 +150,26 @@ export const Registrat = styled.div`
     }
   }
 `
+
+export const Roles = styled.div`
+  display: flex;
+  margin-top: 20px;
+
+  p {
+    margin: 10px 0px;
+  }
+  p:nth-child(1) {
+    margin-right: 50px;
+  }
+  label {
+    margin-left: 5px;
+  }
+
+  input,
+  label,
+  p {
+    :hover {
+      cursor: pointer;
+    }
+  }
+`

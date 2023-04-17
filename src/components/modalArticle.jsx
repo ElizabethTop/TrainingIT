@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
+import { ImCheckmark } from 'react-icons/im'
 import { changeLoading } from '../redux/slice/other'
 import { createArticle } from '../api/requests'
 import {
@@ -21,7 +22,8 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
   const [group, setGroup] = useState('')
   const [article, setArticle] = useState('')
   const [text, setText] = useState('')
-  const [links, setLinks] = useState('')
+  const [valueInputLink, setValueInputLink] = useState('')
+  const [links, setLinks] = useState([])
 
   const dispatch = useDispatch()
 
@@ -29,6 +31,7 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
     setGroup('')
     setArticle('')
     setText('')
+    setValueInputLink('')
     setLinks('')
     setIsOpenAddArt(false)
   }
@@ -45,7 +48,7 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
         group,
         article,
         text,
-        links,
+        links: JSON.stringify(links),
         author,
       })
       await clouseModal()
@@ -55,6 +58,13 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
     } finally {
       dispatch(changeLoading(false))
     }
+  }
+
+  const addLink = () => {
+    if (!valueInputLink) return
+    const newLinks = [...links, `${valueInputLink}`]
+    setLinks(newLinks)
+    setValueInputLink('')
   }
 
   return (
@@ -86,8 +96,23 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
           </SecondLine>
         </Inputs>
         <Links>
-          <span>Полезные ссылки</span>
-          <input value={links} onChange={(e) => setLinks(e.target.value)} />
+          <span>Полезные ссылки:</span>
+          <div className='links'>
+            {links.map((link, index) => (
+              <p key={index}>• {link}</p>
+            ))}
+          </div>
+          <div className='input'>
+            <p>
+              <input
+                value={valueInputLink}
+                onChange={(e) => setValueInputLink(e.target.value)}
+              />
+            </p>
+            <span onClick={addLink}>
+              <ImCheckmark />
+            </span>
+          </div>
         </Links>
         <Publicbutton>
           <button onClick={addNews}>Создать статью</button>

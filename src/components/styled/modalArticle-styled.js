@@ -10,6 +10,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(125, 125, 125, 0.3);
+
+  @media (max-width: 570px) {
+    top: 70px;
+  }
 `
 
 export const Window = styled.div`
@@ -77,10 +81,6 @@ export const FirstLine = styled.div`
   div {
     margin-bottom: 20px;
   }
-
-  /* div:nth-child(1) {
-    margin-right: 20px;
-  } */
 `
 
 export const SecondLine = styled.div`
@@ -94,6 +94,38 @@ export const SecondLine = styled.div`
 
 export const Links = styled.div`
   margin-top: 20px;
+
+  .links {
+    max-height: 100px;
+    overflow: hidden;
+    overflow-y: auto;
+    p {
+      color: blue;
+      text-decoration: underline;
+      margin: 5px 0px;
+      word-wrap: break-word;
+    }
+  }
+
+  .input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      padding-bottom: 5px;
+      width: 100%;
+    }
+    span {
+      margin-left: 20px;
+      color: green;
+      font-size: 25px;
+      padding: 5px 10px;
+      :hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+    }
+  }
 `
 
 export const Publicbutton = styled.div`

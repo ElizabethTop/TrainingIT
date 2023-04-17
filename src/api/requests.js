@@ -64,6 +64,5 @@ export const createArticle = async ({
 
 export const removeArticle = async ({ articleId }) => {
   const response = await axiosInstance.delete(`article/${articleId}`)
-  console.log('articleId = ', articleId);
   return response
 }

@@ -11,10 +11,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(125, 125, 125, 0.3);
-
-  @media (max-width: 570px) {
-    top: 70px;
-  }
 `
 
 export const Window = styled.div`

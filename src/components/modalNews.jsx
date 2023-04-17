@@ -99,6 +99,10 @@ const ModalNews = ({ setDisplayNewsModal, fetchNews }) => {
           </FirstLine>
           <SecondLine>
             <span>Дополнительная информация:</span>
+            <span className='note'>
+              (для разделения абзацев поставьте знак @ , пример: "Тема:
+              ...текст. @")
+            </span>
             <textarea
               value={additional}
               onChange={(e) => setAdditional(e.target.value)}

@@ -4,7 +4,7 @@ export const Сontainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 45px 100px;
+  padding: 45px 0px;
   background: linear-gradient(to bottom right, green, pink);
   background: linear-gradient(
     140deg,
@@ -16,12 +16,17 @@ export const Сontainer = styled.div`
 export const Login = styled.div`
   display: flex;
   max-width: 900px;
+  width: 80%;
   border: 2px solid grey;
   border-radius: 1px;
 
   h2 {
     font-size: 30px;
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 780px) {
+    flex-direction: column;
   }
 `
 
@@ -41,10 +46,14 @@ export const Box2 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   max-width: 40%;
   padding: 40px;
   background: rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 780px) {
+    flex-direction: column;
+    max-width: 100%;
+  }
 `
 
 export const Input = styled.div`
@@ -57,6 +66,7 @@ export const Input = styled.div`
   }
 
   input {
+    width: 100%;
     margin-top: 7px;
     padding: 5px;
     font-size: 20px;
@@ -89,17 +99,25 @@ export const Registration = styled(Login)`
   position: relative;
   flex-direction: column;
   align-items: center;
-  padding: 60px;
+  padding: 60px 0px;
   padding-bottom: 40px;
   border-radius: 3px;
   background-color: white;
   min-width: 500px;
+  width: 650px;
 
   button {
     border-radius: 3px;
     :hover {
       transform: scale(1.03);
     }
+  }
+
+  @media (max-width: 750px) {
+    width: 90%;
+  }
+  @media (max-width: 550px) {
+    min-width: 0px;
   }
 `
 export const Back = styled.div`
@@ -118,7 +136,7 @@ export const RegBox = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  width: 100%;
+  width: 80%;
 `
 export const Registrat = styled.div`
   margin-top: 30px;

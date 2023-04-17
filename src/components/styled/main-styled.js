@@ -38,7 +38,8 @@ export const News = styled.div`
   margin: 30px auto;
   display: flex;
   flex-direction: column;
-  max-width: 70%;
+  max-width: 1100px;
+  width: 80%;
   h2 {
     font-size: 40px;
     margin: 0px 0px 0px 60px;
@@ -52,6 +53,7 @@ export const HeadNews = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `
 
 export const AddNews = styled.div`
@@ -80,6 +82,7 @@ export const NewsBlock = styled.div`
   justify-content: space-between;
   padding: 10px;
   margin: 20px 0px;
+  max-height: 500px;
   border-radius: 10px;
   border: 2px solid rgba(102, 102, 102, 0.3);
 
@@ -114,9 +117,17 @@ export const LeftInfo = styled.div`
   max-width: 50%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
 
-  div {
+  .head {
+    text-align: center;
+  }
+  .text {
     margin: auto 0px;
+  }
+  .description {
+    margin-bottom: 25px;
   }
   p {
     margin: 7px 0px;
@@ -132,5 +143,6 @@ export const RightInfo = styled.div`
 
   img {
     width: 100%;
+    max-height: 250px;
   }
 `

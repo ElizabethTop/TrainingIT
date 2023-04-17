@@ -35,38 +35,18 @@ const Main = () => {
   const dd = String(today.getDate())
   const mm = String(today.getMonth() + 1).padStart(2, '0')
 
-  const testAllNews = [
-    {
-      header: 'Митап',
-      theme: 'Тема: зачем я вас здесь собрал',
-      description:
-        'Описание: Джордж из Джунглей самый востребованный и слушаемый спикер современности. Стоимость очень мала - торгуемся на месте.',
-      additional:
-        'Оратор: Джордж из Джунглей. Когда: 1 апреля. Где: в конференц зале',
-      fileInfo: {
-        patch: FotoStena,
-        name: 'Восход',
-      },
-    },
-    {
-      header: 'Митап',
-      theme: 'Тема: зачем я вас здесь собрал',
-      description:
-        'Описание: Джордж из Джунглей самый востребованный и слушаемый спикер современности. Стоимость очень мала - торгуемся на месте.',
-      additional:
-        'Оратор: Джордж из Джунглей. Когда: 1 апреля. Где: в конференц зале',
-      fileInfo: {
-        patch: FotoStena,
-        name: 'Восход',
-      },
-    },
-  ]
-
   const fetchNews = async () => {
     try {
       dispatch(changeLoading(true))
       const allNews = await getNews()
-      setAllNews(allNews.reverse())
+      const updateNews = allNews.map((news, index) => {
+        if (!news.fileInfo) {
+          news.fileInfo =
+            index % 5 === 0 ? FotoStena : index % 2 === 0 ? ImgInfo1 : ImgInfo2
+        }
+        return news
+      })
+      setAllNews(updateNews.reverse())
     } catch (error) {
       console.log(error)
     } finally {
@@ -124,26 +104,20 @@ const Main = () => {
                     </span>
                   </DeleteNews>
                   <LeftInfo>
-                    <h3>{news.header}</h3>
-                    <div>
-                      <p>{news.theme}</p>
-                      {news.additional.split('.').map((line, index) => (
+                    <div className='head'>
+                      <h3>{news.header}</h3>
+                    </div>
+                    <div className='text'>
+                      <p>Тема: {news.theme}</p>
+                      <p className='description'>Описание: {news.description}</p>
+                      {news.additional.split('@').map((line, index) => (
                         <p key={index}>{line}</p>
                       ))}
-                      <p>{news.description}</p>
                     </div>
                   </LeftInfo>
                   <RightInfo>
                     <img
-                      src={
-                        news.fileInfo?.patch
-                          ? news.fileInfo?.patch
-                          : index % 5 === 0
-                          ? FotoStena
-                          : index % 2 === 0
-                          ? ImgInfo1
-                          : ImgInfo2
-                      }
+                      src={news.fileInfo?.patch || news.fileInfo || null}
                       alt='Картинка'
                     />
                   </RightInfo>

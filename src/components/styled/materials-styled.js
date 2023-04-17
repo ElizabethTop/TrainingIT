@@ -23,7 +23,7 @@ export const Input = styled.div`
   align-items: center;
 
   h3 {
-    font-size: 22px;
+    font-size: 28px;
     margin-bottom: 15px;
   }
   p {
@@ -59,13 +59,16 @@ export const Group = styled.div`
 `
 
 export const HeadGroup = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin-bottom: 10px;
 `
 
 export const Articles = styled.div`
   margin-left: 20px;
+  p {
+    font-size: 22px;
+  }
   div {
     position: relative;
     margin: 10px 0px;

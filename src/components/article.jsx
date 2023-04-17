@@ -26,7 +26,9 @@ const Article = ({ displayArticle, setDisplayArticle, setMaterialsPage }) => {
         </Head>
         <Body>
           <Text>
-            <p>{displayArticle.text}</p>
+            {displayArticle.text.split('@').map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
           </Text>
           <Links>
             <span>Полезные ссылки:</span>

@@ -92,6 +92,10 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
           </FirstLine>
           <SecondLine>
             <span>Текст</span>
+            <span className='note'>
+              (для разделения абзацев поставьте знак @ , пример: "Представьте:
+              ...текст. @")
+            </span>
             <textarea value={text} onChange={(e) => setText(e.target.value)} />
           </SecondLine>
         </Inputs>

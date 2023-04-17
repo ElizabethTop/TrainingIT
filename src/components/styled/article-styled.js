@@ -38,6 +38,12 @@ export const Body = styled.div`
 export const Text = styled.div`
   font-size: 20px;
   line-height: 25px;
+  text-align: justify;
+
+  p {
+    margin-bottom: 20px;
+    text-indent: 30px;
+  }
 `
 
 export const Links = styled.div`
@@ -53,6 +59,7 @@ export const Links = styled.div`
   }
   p {
     margin-bottom: 5px;
+    word-break: break-all;
   }
   a {
     text-decoration: underline;

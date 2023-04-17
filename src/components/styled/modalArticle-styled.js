@@ -90,6 +90,10 @@ export const SecondLine = styled.div`
   span {
     margin-bottom: 10px;
   }
+  .note {
+    color: grey;
+    font-size: 16px;
+  }
 `
 
 export const Links = styled.div`

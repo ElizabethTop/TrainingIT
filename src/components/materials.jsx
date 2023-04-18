@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import ModalArticle from './modalArticle'
 import Article from './article'
@@ -21,6 +21,7 @@ import { PAGE_MATERIALS } from '../constant/constants'
 
 const Materials = () => {
   const dispatch = useDispatch()
+  const { userId } = useSelector((state) => state.user)
 
   const [allArticles, setAllArticles] = useState([])
   const [sortArticles, setSortArticles] = useState([])
@@ -85,14 +86,24 @@ const Materials = () => {
   useEffect(() => {
     if (searchValue) {
       const newsSortArticles = allArticles.reduce((acc, group) => {
-        group.articles.forEach((article) => {
-          const isFind = article.article
-            .toLowerCase()
-            .includes(`${searchValue.toLowerCase()}`)
-          if (isFind) {
-            acc.push(group)
-          }
-        })
+        const findGroup = group.nameGroup
+          .toLowerCase()
+          .includes(`${searchValue.toLowerCase()}`)
+
+        if (findGroup) {
+          acc.push(group)
+        }
+
+        if (!findGroup) {
+          group.articles.forEach((article) => {
+            const isFind = article.article
+              .toLowerCase()
+              .includes(`${searchValue.toLowerCase()}`)
+            if (isFind) {
+              acc.push(article)
+            }
+          })
+        }
 
         return acc
       }, [])
@@ -124,11 +135,13 @@ const Materials = () => {
                   />
                 </p>
               </Input>
-              <AddArticle>
-                <button onClick={() => setIsOpenAddArt(true)}>
-                  + Добавить статью
-                </button>
-              </AddArticle>
+              {userId && (
+                <AddArticle>
+                  <button onClick={() => setIsOpenAddArt(true)}>
+                    + Добавить статью
+                  </button>
+                </AddArticle>
+              )}
             </SearchDocument>
             <ListDocument>
               {sortArticles.length === 0 && (
@@ -136,25 +149,45 @@ const Materials = () => {
                   <p>Статей нет</p>
                 </NoArticles>
               )}
-              {sortArticles.map((line, index) => (
-                <Group key={index}>
-                  <HeadGroup>
-                    <p>{line.nameGroup}</p>
-                  </HeadGroup>
-                  <Articles>
-                    {line.articles.map((article, index) => (
+              {sortArticles.map((line, index) => {
+                if (line?.nameGroup) {
+                  return (
+                    <Group key={index}>
+                      <HeadGroup>
+                        <p>{line.nameGroup}</p>
+                      </HeadGroup>
+                      <Articles>
+                        {line.articles.map((article, index) => (
+                          <div key={index}>
+                            <p onClick={() => openArticle(article)}>
+                              {article.article}
+                            </p>
+                            {userId && (
+                              <span onClick={() => deleteArticle(article.id)}>
+                                <AiOutlineClose />
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </Articles>
+                    </Group>
+                  )
+                }
+                if (!line?.nameGroup) {
+                  return (
+                    <Articles>
                       <div key={index}>
-                        <p onClick={() => openArticle(article)}>
-                          {article.article}
-                        </p>
-                        <span onClick={() => deleteArticle(article.id)}>
-                          <AiOutlineClose />
-                        </span>
+                        <p onClick={() => openArticle(line)}>{line.article}</p>
+                        {userId && (
+                          <span onClick={() => deleteArticle(line.id)}>
+                            <AiOutlineClose />
+                          </span>
+                        )}
                       </div>
-                    ))}
-                  </Articles>
-                </Group>
-              ))}
+                    </Articles>
+                  )
+                }
+              })}
             </ListDocument>
             {isOpenAddArt && (
               <ModalArticle

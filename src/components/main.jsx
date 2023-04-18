@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -27,9 +27,11 @@ import {
 } from './styled/main-styled'
 
 const Main = () => {
+  const dispatch = useDispatch()
+  const { userId } = useSelector((state) => state.user)
+
   const [allNews, setAllNews] = useState([])
   const [isNewsModal, setDisplayNewsModal] = useState(false)
-  const dispatch = useDispatch()
 
   let today = new Date()
   const dd = String(today.getDate())
@@ -85,9 +87,11 @@ const Main = () => {
         <News>
           <HeadNews>
             <h2>Новости</h2>
-            <AddNews onClick={() => setDisplayNewsModal(true)}>
-              <button>Добавить новость</button>
-            </AddNews>
+            {userId && (
+              <AddNews onClick={() => setDisplayNewsModal(true)}>
+                <button>Добавить новость</button>
+              </AddNews>
+            )}
           </HeadNews>
           {allNews.length === 0 && (
             <NoNews>
@@ -98,18 +102,22 @@ const Main = () => {
             allNews.map((news, index) => {
               return (
                 <NewsBlock key={index}>
-                  <DeleteNews onClick={() => deleteNews(news.id)}>
-                    <span>
-                      <AiOutlineClose />
-                    </span>
-                  </DeleteNews>
+                  {userId && (
+                    <DeleteNews onClick={() => deleteNews(news.id)}>
+                      <span>
+                        <AiOutlineClose />
+                      </span>
+                    </DeleteNews>
+                  )}
                   <LeftInfo>
                     <div className='head'>
                       <h3>{news.header}</h3>
                     </div>
                     <div className='text'>
                       <p>Тема: {news.theme}</p>
-                      <p className='description'>Описание: {news.description}</p>
+                      <p className='description'>
+                        Описание: {news.description}
+                      </p>
                       {news.additional.split('@').map((line, index) => (
                         <p key={index}>{line}</p>
                       ))}

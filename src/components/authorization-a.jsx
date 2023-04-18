@@ -44,7 +44,7 @@ const Authorization = ({ setCurrentPage }) => {
         dispatch(
           registrationUser({ login, password, firstName, lastName, role })
         ).then((resp) => {
-          if (resp) {
+          if (!resp?.error) {
             clearInfo()
             setCurrentPage(PAGES.MAIN)
           }
@@ -52,7 +52,7 @@ const Authorization = ({ setCurrentPage }) => {
       }
       if (status === 'login') {
         dispatch(loginUser({ login, password })).then((resp) => {
-          if (resp) {
+          if (!resp?.error) {
             clearInfo()
             setCurrentPage(PAGES.MAIN)
           }

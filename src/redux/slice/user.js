@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { registration, logining, deleteUser } from '../../api/authorizat'
+import { registration, logining } from '../../api/authorizat'
 
 const initialState = {
   userId: '',
@@ -16,7 +16,7 @@ const initialState = {
 export const registrationUser = createAsyncThunk(
   'user/registrationUser',
   async function (
-    { login, password, firstName, lastName },
+    { login, password, firstName, lastName, role },
     { rejectWithValue }
   ) {
     try {
@@ -25,6 +25,7 @@ export const registrationUser = createAsyncThunk(
         password,
         firstName,
         lastName,
+        role,
       })
       return response
     } catch (error) {
@@ -42,19 +43,6 @@ export const loginUser = createAsyncThunk(
       return response
     } catch (error) {
       console.log('Во время авторицации произошла ошибка: ', error)
-      return rejectWithValue(error.response.data)
-    }
-  }
-)
-
-export const deleteAccount = createAsyncThunk(
-  'user/deleteAccount',
-  async function ({ userId }, { rejectWithValue }) {
-    try {
-      const response = await deleteUser({ userId })
-      return response
-    } catch (error) {
-      console.log('Произошла ошибка при удалении аккаунта: ', error)
       return rejectWithValue(error.response.data)
     }
   }
@@ -122,18 +110,6 @@ const userSlice = createSlice({
         state.errorAuth = null
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loadingAuth = false
-        state.errorAuth = action.payload
-      })
-
-      .addCase(deleteAccount.fulfilled, (state) => {
-        state.loadingAuth = false
-      })
-      .addCase(deleteAccount.pending, (state) => {
-        state.loadingAuth = true
-        state.errorAuth = null
-      })
-      .addCase(deleteAccount.rejected, (state, action) => {
         state.loadingAuth = false
         state.errorAuth = action.payload
       })

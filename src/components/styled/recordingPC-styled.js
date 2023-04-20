@@ -1,85 +1,96 @@
 import styled from 'styled-components'
 
-export const Container = styled.div``
-
-export const Repair = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 50px auto;
-  width: 90%;
-  max-width: 1200px;
-  height: 500px;
-  font-size: 40px;
-  color: grey;
-  border: 3px solid green;
-
-  p {
-    word-break: break-all;
-  }
+export const Container = styled.div`
+  padding: 20px;
 `
 
 export const AllCards = styled.div`
-  margin: 0px auto;
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  width: 90%;
-`
-
-export const Card = styled.div`
-  flex-basis: 40%;
-  min-height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 50px;
-  padding: 20px;
-  border-radius: 5px;
-  border: 2px solid rgba(85, 0, 255, 1);
-  border: 2px solid rgba(72, 0, 255, 1);
-`
-
-export const ContentCard = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  word-wrap: break-word;
-  text-align: center;
-
-  .head {
-    margin-bottom: 40px;
-    font-size: 28px;
+  align-items: center;
+  h2 {
+    margin: 60px 0px 20px 50px;
+    font-size: 40px;
   }
+`
+export const CardGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px 20px 0px;
+  width: 100%;
 
-  .text {
-    flex-grow: 1;
+  .group {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 22px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .groupCards {
+    display: flex;
+  }
+`
+export const Card = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 50px;
+  width: 350px;
+  height: 250px;
+  font-size: 32px;
+  border-radius: 5px;
+  box-shadow: 10px 5px 20px grey;
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 0.5) 0%,
+    rgba(253, 29, 29, 0.5) 50%,
+    rgba(252, 176, 69, 0.5) 100%
+  );
+  color: white;
+
+  h3 {
+    text-align: center;
+    font-size: 46px;
+  }
+  :hover {
+    transform: scale(1.05);
+    cursor: pointer;
   }
 `
 
-export const ButtonCard = styled.div`
+export const Arrow = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 30px;
+  align-items: center;
+  width: 100px;
+  font-size: 80px;
+  svg {
+    width: 100%;
+  }
+`
+
+export const AddCard = styled.div`
+  display: flex;
+  justify-content: right;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    border-radius: 5px;
+    border: 2px dashed rgba(180, 180, 180, 1);
+
+    :hover {
+      transform: scale(1.02);
+    }
+  }
 
   button {
-    padding: 20px 70px;
-    font-size: 16px;
+    padding: 10px;
     font-weight: 700;
-    color: white;
     border-radius: 5px;
-    background: rgba(4, 0, 255, 0.6);
-
-    :hover{
-      background: rgba(4, 0, 255, 0.9);
-      transform: scale(1.05);
-    }
+    background-color: rgba(200, 200, 200, 0.4);
   }
 `

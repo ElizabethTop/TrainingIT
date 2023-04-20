@@ -36,8 +36,8 @@ const Article = ({ displayArticle, setDisplayArticle, setMaterialsPage }) => {
               {JSON.parse(displayArticle.links).length === 0 && (
                 <p className='noLinks'>ссылок нет</p>
               )}
-              {JSON.parse(displayArticle.links).map((link) => (
-                <p>
+              {JSON.parse(displayArticle.links).map((link, index) => (
+                <p key={index}>
                   <a
                     href={link.includes('http') ? link : `https://${link}`}
                     target='_blank'

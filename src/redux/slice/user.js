@@ -3,7 +3,7 @@ import { registration, logining } from '../../api/authorizat'
 
 const initialState = {
   userId: '',
-  data: {
+  userData: {
     firstName: '',
     lastName: '',
     login: '',
@@ -54,21 +54,21 @@ const userSlice = createSlice({
   reducers: {
     cleanerLocal(state) {
       state.userId = initialState.userId
-      state.data = initialState.data
+      state.userData = initialState.userData
       state.role = initialState.role
 
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
-      localStorage.removeItem('data')
+      localStorage.removeItem('userData')
       localStorage.removeItem('role')
     },
     setUserData(state) {
       const userId = localStorage.getItem('userId')
-      const data = localStorage.getItem('data')
+      const userData = localStorage.getItem('userData')
       const role = localStorage.getItem('role')
 
       if (userId) state.userId = JSON.parse(userId)
-      if (data) state.fio = JSON.parse(data)
+      if (userData) state.userData = JSON.parse(userData)
       if (role) state.role = JSON.parse(role)
     },
   },
@@ -76,12 +76,12 @@ const userSlice = createSlice({
     builder
       .addCase(registrationUser.fulfilled, (state, action) => {
         state.userId = action.payload.userId
-        state.data = action.payload.data
+        state.userData = action.payload.data
         state.role = action.payload.role
 
         localStorage.setItem('token', JSON.stringify(action.payload.token))
         localStorage.setItem('userId', JSON.stringify(action.payload.userId))
-        localStorage.setItem('data', JSON.stringify(action.payload.data))
+        localStorage.setItem('userData', JSON.stringify(action.payload.data))
         localStorage.setItem('role', JSON.stringify(action.payload.role))
         state.loadingAuth = false
       })
@@ -96,12 +96,12 @@ const userSlice = createSlice({
 
       .addCase(loginUser.fulfilled, (state, action) => {
         state.userId = action.payload.userId
-        state.data = action.payload.data
+        state.userData = action.payload.data
         state.role = action.payload.role
 
         localStorage.setItem('token', JSON.stringify(action.payload.token))
         localStorage.setItem('userId', JSON.stringify(action.payload.userId))
-        localStorage.setItem('data', JSON.stringify(action.payload.data))
+        localStorage.setItem('userData', JSON.stringify(action.payload.data))
         localStorage.setItem('role', JSON.stringify(action.payload.role))
         state.loadingAuth = false
       })

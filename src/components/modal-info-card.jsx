@@ -1,4 +1,7 @@
 import { AiOutlineClose } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { recordOnExam } from '../api/requests'
+import { changeLoading } from '../redux/slice/other'
 import {
   DetailCard,
   ContentCard,
@@ -10,11 +13,44 @@ import {
   Box3,
 } from './styled/modal-info-card-styled'
 
-function InfoCard({ selectedCard, setIsShowCard }) {
+function InfoCard({ selectedCard, setIsShowCard, fetchCards }) {
+  const dispatch = useDispatch()
+  const { userId, userData, role } = useSelector((state) => state.user)
+
+  const clouseModal = async () => {
+    setIsShowCard(false)
+  }
+
+  const recording = async () => {
+    try {
+      dispatch(changeLoading(true))
+
+      const newUserData = {
+        ...userData,
+        role,
+      }
+
+      await recordOnExam({
+        userId,
+        userData: newUserData,
+        cardId: selectedCard.id,
+        cardHead: selectedCard.head,
+        status: 'В ожидании',
+      })
+
+      await clouseModal()
+      await fetchCards()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      dispatch(changeLoading(false))
+    }
+  }
+
   return (
     <DetailCard>
       <ContentCard>
-        <CloseIconCard onClick={() => setIsShowCard(false)}>
+        <CloseIconCard onClick={clouseModal}>
           <AiOutlineClose />
         </CloseIconCard>
         <Window>
@@ -43,7 +79,7 @@ function InfoCard({ selectedCard, setIsShowCard }) {
             </Links>
           </Box2>
           <Box3>
-            <button>Записаться</button>
+            <button onClick={recording}>Записаться</button>
           </Box3>
         </Window>
       </ContentCard>

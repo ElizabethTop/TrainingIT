@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ImCheckmark } from 'react-icons/im'
+import { useDispatch } from 'react-redux'
+import { changeLoading } from '../redux/slice/other'
+import { createCard } from '../api/requests'
 import {
   Container,
   Window,
@@ -11,7 +14,8 @@ import {
   AddButton,
 } from './styled/modal-add-card'
 
-function ModalAddCard({ setIsShowAddCard }) {
+function ModalAddCard({ setIsShowAddCard, fetchCards }) {
+  const dispatch = useDispatch()
   const [group, setGroup] = useState('')
   const [head, setHead] = useState('')
   const [number, setNumber] = useState('')
@@ -34,10 +38,42 @@ function ModalAddCard({ setIsShowAddCard }) {
     setValueInputLink('')
   }
 
+  const clouseModal = async () => {
+    setGroup('')
+    setHead('')
+    setNumber('')
+    setValueInputQuest('')
+    setQuestions([])
+    setValueInputLink('')
+    setLinks([])
+    setIsShowAddCard(false)
+  }
+
+  const creatingCard = async () => {
+    try {
+      dispatch(changeLoading(true))
+
+      await createCard({
+        group,
+        head,
+        number,
+        questions,
+        links,
+      })
+
+      await clouseModal()
+      await fetchCards()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      dispatch(changeLoading(false))
+    }
+  }
+
   return (
     <Container>
       <Window>
-        <CloseModal onClick={() => setIsShowAddCard(false)}>
+        <CloseModal onClick={clouseModal}>
           <AiOutlineClose />
         </CloseModal>
         <Content>
@@ -104,7 +140,7 @@ function ModalAddCard({ setIsShowAddCard }) {
             </InputPlus>
           </Box>
           <AddButton>
-            <button>Создать</button>
+            <button onClick={creatingCard}>Создать</button>
           </AddButton>
         </Content>
       </Window>

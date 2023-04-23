@@ -16,7 +16,7 @@ import {
 } from './styled/modalNews-styled'
 
 const ModalNews = ({ setDisplayNewsModal, fetchNews }) => {
-  const { userId, data } = useSelector((state) => state.user)
+  const { userId, userData } = useSelector((state) => state.user)
 
   const [header, setHeader] = useState('')
   const [theme, setTheme] = useState('')
@@ -35,10 +35,10 @@ const ModalNews = ({ setDisplayNewsModal, fetchNews }) => {
 
   const addNews = async () => {
     try {
-      dispatch(changeLoading)
+      dispatch(changeLoading(true))
       const author = {
         userId,
-        data,
+        userData,
       }
 
       await createNews({

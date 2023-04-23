@@ -22,7 +22,7 @@ import { changeLoading } from '../redux/slice/other'
 
 const Navigation = ({ currentPage, setCurrentPage }) => {
   const dispatch = useDispatch()
-  const { userId } = useSelector((state) => state.user)
+  const { userId, role } = useSelector((state) => state.user)
 
   const [navigate, setNavigate] = useState([
     {
@@ -44,6 +44,7 @@ const Navigation = ({ currentPage, setCurrentPage }) => {
   const logout = async () => {
     setIsShowUL(false)
     dispatch(cleanerLocal())
+    setCurrentPage(PAGES.MAIN)
   }
 
   const fetchAllUsers = async () => {
@@ -51,6 +52,9 @@ const Navigation = ({ currentPage, setCurrentPage }) => {
       dispatch(changeLoading(true))
       const usersList = await getAllUsers()
       setUsersList(usersList)
+      if (usersList.length === 0) {
+        logout()
+      }
     } catch (error) {
       console.log(error)
     } finally {
@@ -94,12 +98,6 @@ const Navigation = ({ currentPage, setCurrentPage }) => {
     }
   }, [userId])
 
-  useEffect(() => {
-    if (usersList.length === 0) {
-      logout()
-    }
-  }, [usersList])
-
   return (
     <NavContainer>
       <Sections>
@@ -113,7 +111,9 @@ const Navigation = ({ currentPage, setCurrentPage }) => {
           </HeadNav>
         ))}
         {userId && <HeadNav onClick={logout}>Выйти из ЛК</HeadNav>}
-        {userId && <Detail onClick={() => setIsShowUL(true)}>Доп инфо</Detail>}
+        {userId && role === 'admin' && (
+          <Detail onClick={() => setIsShowUL(true)}>Доп инфо</Detail>
+        )}
         {isShowUL && (
           <UserList>
             <WindowUL>

@@ -66,3 +66,64 @@ export const removeArticle = async ({ articleId }) => {
   const response = await axiosInstance.delete(`article/${articleId}`)
   return response
 }
+
+export const getAllCards = async () => {
+  const response = await axiosInstance.get(`cards`)
+  return response.data
+}
+
+export const createCard = async ({ group, head, number, questions, links }) => {
+  const response = await axiosInstance.post(`card`, {
+    group,
+    head,
+    number,
+    questions,
+    links,
+  })
+  return response
+}
+
+export const removeCard = async ({ cardId }) => {
+  const response = await axiosInstance.delete(`card/${cardId}`)
+  return response
+}
+
+export const recordOnExam = async ({
+  userId,
+  userData,
+  cardId,
+  cardHead,
+  status,
+}) => {
+  const response = await axiosInstance.post(`exam`, {
+    userId,
+    userData,
+    cardId,
+    cardHead,
+    status,
+  })
+  return response
+}
+
+export const removeExam = async ({ examId }) => {
+  const response = await axiosInstance.delete(`exam/${examId}`)
+  return response
+}
+
+export const getInfoExams = async () => {
+  const response = await axiosInstance.get(`exams`)
+  return response.data
+}
+
+export const getInfoUserExam = async () => {
+  const response = await axiosInstance.get(`examuser`)
+  return response.data
+}
+
+export const changeUserInfoExam = async ({ examId, status, passingExam }) => {
+  const response = await axiosInstance.patch(`exam/${examId}`, {
+    status,
+    passingExam,
+  })
+  return response
+}

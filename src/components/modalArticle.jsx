@@ -17,7 +17,7 @@ import {
 } from './styled/modalArticle-styled'
 
 const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
-  const { userId, data } = useSelector((state) => state.user)
+  const { userId, userData } = useSelector((state) => state.user)
 
   const [group, setGroup] = useState('')
   const [article, setArticle] = useState('')
@@ -38,10 +38,10 @@ const ModalArticle = ({ setIsOpenAddArt, fetchArticles }) => {
 
   const addNews = async () => {
     try {
-      dispatch(changeLoading)
+      dispatch(changeLoading(true))
       const author = {
         userId,
-        data,
+        userData,
       }
 
       await createArticle({

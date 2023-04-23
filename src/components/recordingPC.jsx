@@ -77,10 +77,11 @@ function RecordingPC() {
 
       sortCard.reduce((acc, group) => {
         group.cards.forEach((card, index) => {
-          card.blockedCard = false
+          card.blockedCard = true
 
           if (index === 0) {
             const findExm = infoExam.find((exam) => exam.cardHead === card.head)
+            card.blockedCard = false
             if (findExm) {
               card.status = findExm.status
             }
@@ -134,7 +135,9 @@ function RecordingPC() {
   }
 
   useEffect(() => {
-    fetchCards()
+    if (userId) {
+      fetchCards()
+    }
   }, [])
 
   return !userId ? (

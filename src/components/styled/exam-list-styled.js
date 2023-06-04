@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `
@@ -17,6 +18,29 @@ export const Box = styled.div`
 
   h3 {
     text-align: center;
+  }
+`
+
+export const Input = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  width: 90%;
+  max-width: 1200px;
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  p {
+    width: 100%;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 145, 15, 0.3);
   }
 `
 

@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css'
 import { AiOutlineClose } from 'react-icons/ai'
 import ModalNews from './modalNews'
 import { changeLoading } from '../redux/slice/other'
-import { getNews, removeNews } from '../api/requests'
+import { getInfoUserExam, getNews, removeNews } from '../api/requests'
 import { date } from '../constant/constants'
 import FotoStena from '../image/stena.jpg'
 import ImgInfo1 from '../image/info.jpg'
@@ -32,15 +32,29 @@ const Main = () => {
 
   const [allNews, setAllNews] = useState([])
   const [isNewsModal, setDisplayNewsModal] = useState(false)
+  const [examsInfo, setExamInfo] = useState()
 
   let today = new Date()
   const dd = String(today.getDate())
   const mm = String(today.getMonth() + 1).padStart(2, '0')
+  const yy = String(today.getFullYear())
 
-  const fetchNews = async () => {
+  const fetchInfo = async () => {
     try {
       dispatch(changeLoading(true))
       const allNews = await getNews()
+      const exams = await getInfoUserExam('one')
+
+      const dateExams = exams.reduce((acc, exam) => {
+        if (exam?.dateExam && exam.status === 'В ожидании') {
+          acc.push({
+            nameExam: exam.cardHead,
+            dateExam: exam.dateExam,
+          })
+        }
+        return acc
+      }, [])
+
       const updateNews = allNews.map((news, index) => {
         if (!news.fileInfo) {
           news.fileInfo =
@@ -49,6 +63,7 @@ const Main = () => {
         return news
       })
       setAllNews(updateNews.reverse())
+      setExamInfo(dateExams)
     } catch (error) {
       console.log(error)
     } finally {
@@ -60,7 +75,7 @@ const Main = () => {
     try {
       dispatch(changeLoading(true))
       await removeNews({ newsId })
-      await fetchNews()
+      await fetchInfo()
     } catch (error) {
       console.log(error)
     } finally {
@@ -69,7 +84,7 @@ const Main = () => {
   }
 
   useEffect(() => {
-    fetchNews()
+    fetchInfo()
   }, [])
 
   return (
@@ -81,7 +96,25 @@ const Main = () => {
             <p>{date.month[mm]}</p>
           </Month>
           <Calend>
-            <Calendar />
+            <Calendar
+              tileClassName={({ date, view }) => {
+                if (examsInfo) {
+                  const findDateExam = examsInfo.find(
+                    (exam) => date.getTime() / 1000 === exam.dateExam
+                  )
+
+                  if (findDateExam) {
+                    const today = new Date(yy, mm - 1, dd).getTime()
+
+                    if (today === date.getTime()) {
+                      return 'exams-today'
+                    } else {
+                      return 'exams-then'
+                    }
+                  }
+                }
+              }}
+            />
           </Calend>
         </BoxCalendar>
         <News>
@@ -137,7 +170,7 @@ const Main = () => {
       {isNewsModal && (
         <ModalNews
           setDisplayNewsModal={setDisplayNewsModal}
-          fetchNews={fetchNews}
+          fetchInfo={fetchInfo}
         />
       )}
     </MainContainer>

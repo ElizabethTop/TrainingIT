@@ -17,7 +17,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { PAGES } from '../constant/constants'
 import { cleanerLocal } from '../redux/slice/user'
 import { setUserData } from '../redux/slice/user'
-import { deleteUser, getAllUsers } from '../api/authorizat'
+import { deleteUser, getAllUsers } from '../api/requests'
 import { changeLoading } from '../redux/slice/other'
 
 const Navigation = ({ currentPage, setCurrentPage }) => {

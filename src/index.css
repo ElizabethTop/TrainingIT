@@ -175,3 +175,14 @@ abbr[title] {
   color: black !important;
   background: none !important;
 }
+.exams-then {
+  color: white !important;
+  border-radius: 6px !important;
+  background: rgb(211, 193, 28) !important;
+}
+
+.exams-today {
+  color: white !important;
+  border-radius: 6px !important;
+  background: rgb(7, 57, 196) !important;
+}

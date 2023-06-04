@@ -115,15 +115,33 @@ export const getInfoExams = async () => {
   return response.data
 }
 
-export const getInfoUserExam = async () => {
-  const response = await axiosInstance.get(`examuser`)
+export const getInfoUserExam = async (status) => {
+  const response = await axiosInstance.get(`examuser`, {
+    status,
+  })
   return response.data
 }
 
-export const changeUserInfoExam = async ({ examId, status, passingExam }) => {
+export const changeUserInfoExam = async ({
+  examId,
+  status,
+  passingExam,
+  dateExam,
+}) => {
   const response = await axiosInstance.patch(`exam/${examId}`, {
     status,
     passingExam,
+    dateExam,
   })
   return response
+}
+
+export const deleteUser = async ({ userId }) => {
+  const response = axiosInstance.delete(`user/${userId}`)
+  return response
+}
+
+export const getAllUsers = async () => {
+  const response = await axiosInstance.get(`users`)
+  return response.data
 }

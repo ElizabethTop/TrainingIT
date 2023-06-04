@@ -15,7 +15,7 @@ import {
   CloseIcon,
 } from './styled/modalNews-styled'
 
-const ModalNews = ({ setDisplayNewsModal, fetchNews }) => {
+const ModalNews = ({ setDisplayNewsModal, fetchInfo }) => {
   const { userId, userData } = useSelector((state) => state.user)
 
   const [header, setHeader] = useState('')
@@ -51,7 +51,7 @@ const ModalNews = ({ setDisplayNewsModal, fetchNews }) => {
       })
 
       await clouseModal()
-      await fetchNews()
+      await fetchInfo()
     } catch (error) {
       console.log(error)
     } finally {

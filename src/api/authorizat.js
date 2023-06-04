@@ -29,12 +29,3 @@ export const logining = async ({ login, password }) => {
   return response.data
 }
 
-export const deleteUser = async ({ userId }) => {
-  const response = axiosInstance.delete(`user/${userId}`)
-  return response
-}
-
-export const getAllUsers = async () => {
-  const response = await axiosInstance.get(`users`)
-  return response.data
-}

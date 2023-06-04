@@ -84,6 +84,7 @@ function RecordingPC() {
             card.blockedCard = false
             if (findExm) {
               card.status = findExm.status
+              card.dateExam = findExm?.dateExam ? findExm.dateExam : undefined
             }
             return card
           }
@@ -132,6 +133,12 @@ function RecordingPC() {
   const showCard = (card) => {
     setSelectedCard(card)
     setIsShowCard(true)
+  }
+
+  const getDate = (seconds) => {
+    const date = new Date(0)
+    date.setSeconds(seconds)
+    return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('.')
   }
 
   useEffect(() => {
@@ -192,6 +199,9 @@ function RecordingPC() {
                       <Card>
                         <div className='head' onClick={() => showCard(card)}>
                           <h3>{card.head}</h3>
+                          {card?.dateExam && (
+                            <p>Назначенная дата: {getDate(card.dateExam)} </p>
+                          )}
                         </div>
                         {role === 'admin' && (
                           <DeleteIcon onClick={() => deleteCard(card.id)}>

@@ -43,17 +43,20 @@ const Main = () => {
     try {
       dispatch(changeLoading(true))
       const allNews = await getNews()
-      const exams = await getInfoUserExam('one')
 
-      const dateExams = exams.reduce((acc, exam) => {
-        if (exam?.dateExam && exam.status === 'В ожидании') {
-          acc.push({
-            nameExam: exam.cardHead,
-            dateExam: exam.dateExam,
-          })
-        }
-        return acc
-      }, [])
+      if (userId) {
+        const exams = await getInfoUserExam('one')
+        const dateExams = exams.reduce((acc, exam) => {
+          if (exam?.dateExam && exam.status === 'В ожидании') {
+            acc.push({
+              nameExam: exam.cardHead,
+              dateExam: exam.dateExam,
+            })
+          }
+          return acc
+        }, [])
+        setExamInfo(dateExams)
+      }
 
       const updateNews = allNews.map((news, index) => {
         if (!news.fileInfo) {
@@ -62,8 +65,7 @@ const Main = () => {
         }
         return news
       })
-      setAllNews(updateNews.reverse())
-      setExamInfo(dateExams)
+      setAllNews(updateNews)
     } catch (error) {
       console.log(error)
     } finally {

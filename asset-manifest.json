@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/TrainingIT/static/css/main.d4ad8d09.css",
-    "main.js": "/TrainingIT/static/js/main.6ab8ca07.js",
+    "main.js": "/TrainingIT/static/js/main.bac89f52.js",
     "static/media/stena.jpg": "/TrainingIT/static/media/stena.2547cfd434ffc8f9881f.jpg",
     "static/media/info2.jpg": "/TrainingIT/static/media/info2.22ac6a3f56ca86033df9.jpg",
     "static/media/info.jpg": "/TrainingIT/static/media/info.c3e161899b2cf737b3f6.jpg",
     "index.html": "/TrainingIT/index.html",
     "main.d4ad8d09.css.map": "/TrainingIT/static/css/main.d4ad8d09.css.map",
-    "main.6ab8ca07.js.map": "/TrainingIT/static/js/main.6ab8ca07.js.map"
+    "main.bac89f52.js.map": "/TrainingIT/static/js/main.bac89f52.js.map"
   },
   "entrypoints": [
     "static/css/main.d4ad8d09.css",
-    "static/js/main.6ab8ca07.js"
+    "static/js/main.bac89f52.js"
   ]
 }
